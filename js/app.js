@@ -161,6 +161,60 @@ const worksData = [
         description: '创意短视频内容制作，包括脚本创作、拍摄和后期剪辑，适合社交媒体传播。',
         tags: ['短视频', '剪辑', '社交媒体'],
         image: 'https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=500'
+    },
+    {
+        id: 19,
+        title: '音频播客封面',
+        category: 'audio',
+        categoryName: '音频设计',
+        description: '为播客节目设计的封面艺术作品，结合品牌调性与听觉体验，打造独特的视觉识别。',
+        tags: ['播客', '封面设计', '音频'],
+        image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=500'
+    },
+    {
+        id: 20,
+        title: '音乐专辑封面',
+        category: 'audio',
+        categoryName: '专辑设计',
+        description: '独立音乐专辑封面设计，融合抽象艺术与音乐风格，创造视觉与听觉的完美融合。',
+        tags: ['专辑封面', '音乐', '艺术'],
+        image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500'
+    },
+    {
+        id: 21,
+        title: '旅行随笔集',
+        category: 'writing',
+        categoryName: '文字创作',
+        description: '记录旅行见闻的图文随笔集，文字与摄影的完美结合，带你领略世界各地的风土人情。',
+        tags: ['旅行', '随笔', '图文'],
+        image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500'
+    },
+    {
+        id: 22,
+        title: '设计方法论',
+        category: 'writing',
+        categoryName: '设计文章',
+        description: '分享设计思维与方法论的专栏文章，探讨设计背后的逻辑与思考过程。',
+        tags: ['设计理论', '方法论', '专栏'],
+        image: 'https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500'
+    },
+    {
+        id: 23,
+        title: '极简室内摄影',
+        category: 'photo',
+        categoryName: '室内摄影',
+        description: '简约风格的室内空间摄影，通过光影和线条展现空间的美感与设计感。',
+        tags: ['室内', '极简', '空间'],
+        image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=500'
+    },
+    {
+        id: 24,
+        title: '品牌年度报告设计',
+        category: 'design',
+        categoryName: '报告设计',
+        description: '企业年度报告的视觉设计方案，将数据与故事完美结合，呈现专业形象。',
+        tags: ['年度报告', '数据可视化', '企业'],
+        image: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500'
     }
 ];
 
@@ -231,12 +285,17 @@ function initWorks() {
 function renderWorks(works) {
     worksGrid.innerHTML = '';
     
+    if (works.length === 0) {
+        worksGrid.innerHTML = '<div style="text-align: center; padding: 4rem; color: var(--text-muted);">暂无作品</div>';
+        return;
+    }
+    
     works.forEach((work, index) => {
         const card = document.createElement('div');
         card.className = `work-card ${work.category === 'audio' ? 'audio-card' : ''}`;
         card.dataset.id = work.id;
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(50px)';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
         card.style.transition = `all 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${index * 0.06}s`;
         
         const config = categoryConfig[work.category] || { icon: 'fa-image', textColor: '#6b7280', bgColor: 'rgba(107, 114, 128, 0.15)' };
@@ -535,6 +594,30 @@ document.addEventListener('keydown', (e) => {
         if (addWorkModal.style.display === 'block') closeAddWorkModal();
     }
 });
+
+// 联系表单相关
+const contactForm = document.getElementById('contactForm');
+
+// 处理联系表单提交
+function handleContactSubmit(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('contactName').value;
+    const email = document.getElementById('contactEmail').value;
+    const subject = document.getElementById('contactSubject').value;
+    const message = document.getElementById('contactMessage').value;
+    
+    // 模拟发送成功
+    console.log('发送消息:', { name, email, subject, message });
+    
+    contactForm.reset();
+    showSuccessMessage('消息发送成功！我会尽快回复您。');
+}
+
+// 添加联系表单事件监听
+if (contactForm) {
+    contactForm.addEventListener('submit', handleContactSubmit);
+}
 
 // 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', init);
